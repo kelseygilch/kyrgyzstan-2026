@@ -19,6 +19,7 @@
     </div>
     <nav class="tabs" id="tabs">
       <button class="tab is-active" data-tab="itinerary">Itinerary</button>
+      <button class="tab" data-tab="food">Food</button>
       <button class="tab" data-tab="packing">Packing</button>
     </nav>
     <div class="header-actions">
@@ -41,6 +42,20 @@
         </div>
       </div>
       <div id="itinerary-list" class="itinerary-list"></div>
+    </section>
+
+    <!-- FOOD -->
+    <section class="view" id="view-food">
+      <div class="view-toolbar">
+        <div>
+          <h2 class="section-title">Trek meal plan <span class="muted">— the 9 trek days</span></h2>
+          <p class="muted" id="food-meta"></p>
+        </div>
+      </div>
+      <div class="food-wrap">
+        <table class="food-table" id="food-table"></table>
+      </div>
+      <p class="hint">Each meal has a description and a serving count. The totals row adds up the servings so you know how much to buy and pack.</p>
     </section>
 
     <!-- PACKING -->

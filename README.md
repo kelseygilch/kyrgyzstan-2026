@@ -14,10 +14,18 @@ No build step, no server, no dependencies — just open `index.html` in a browse
 - **Todd & Luci** starts empty — hit **“Copy Trevor & Kelsey's plan across”** to clone
   it, then edit only the days that differ. Add/delete days with the buttons.
 
+### Food
+- A dedicated tab with the **9 trek days** (Trek Day 1–9, with dates + route) as rows.
+- Columns to fill in **Breakfast / Lunch / Dinner** — each with a description and a
+  **servings** count. Pre-filled with any meal notes already in the itinerary.
+- The **totals row** at the bottom sums servings per meal (and a grand total), plus a
+  per-day total column, so you know how much to buy and pack.
+
 ### Packing
 - Four people: **Trevor, Kelsey, Todd, Luci**, each with their own personal checklist
-  (seeded from past trips — NZ, Peru, Larapinta), grouped by category.
-- Tick items as packed; per-person progress bar at the top.
+  (seeded from past trips — NZ, Peru, Larapinta), grouped into **collapsible categories**
+  (click a category header to fold it; your collapsed/expanded choices are remembered).
+- Tick items as packed; per-person progress bar at the top, plus a packed count per category.
 - **Shared gear** lives in its own section. Each shared item has:
   - a **quantity** the group needs (e.g. 2 tents, 1 jet boil), and
   - a **carrier dropdown per unit** so you can record *who* carries each one
@@ -60,7 +68,7 @@ python -m http.server 8000
 ```
 index.html      app shell (two tabs)
 css/styles.css  styling
-js/data.js      seed data extracted from the spreadsheets (itinerary + packing master list)
+js/data.js      seed data extracted from the spreadsheets (itinerary + meals + packing master list)
 js/app.js       all app logic (state, rendering, localStorage, export/import)
 ```
 

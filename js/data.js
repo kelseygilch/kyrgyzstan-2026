@@ -1,6 +1,6 @@
 // Auto-generated seed data for the Kyrgyzstan Trip Planner.
 // Source: Scotland_Kyrgyzstan 2026.xlsx (Itinerary) + NZ/Peru/Larapinta packing lists.
-// This is only the DEFAULT data. Live edits are saved in your browser (localStorage).
+// Only the DEFAULTS. Live edits are saved in your browser (localStorage).
 const SEED = {
   "people": [
     "Trevor",
@@ -2072,5 +2072,161 @@ const SEED = {
         false
       ]
     }
-  ]
+  ],
+  "meals": [
+    {
+      "day": "Trek Day 1",
+      "date": "2026-07-02",
+      "route": "Jyrgalan → Terim-Tor Bulak Valley",
+      "breakfast": {
+        "desc": "bring from Jyrgalan",
+        "qty": 0
+      },
+      "lunch": {
+        "desc": "",
+        "qty": 0
+      },
+      "dinner": {
+        "desc": "",
+        "qty": 0
+      }
+    },
+    {
+      "day": "Trek Day 2",
+      "date": "2026-07-03",
+      "route": "Terim-Tor Bulak Valley → Boz-Uchuk Lakes",
+      "breakfast": {
+        "desc": "",
+        "qty": 0
+      },
+      "lunch": {
+        "desc": "",
+        "qty": 0
+      },
+      "dinner": {
+        "desc": "",
+        "qty": 0
+      }
+    },
+    {
+      "day": "Trek Day 3",
+      "date": "2026-07-04",
+      "route": "Boz-Uchuk Lakes → Jergez Gorge",
+      "breakfast": {
+        "desc": "",
+        "qty": 0
+      },
+      "lunch": {
+        "desc": "",
+        "qty": 0
+      },
+      "dinner": {
+        "desc": "Kyrgyz Life Jergez Camp (~850 KGS dinner)",
+        "qty": 0
+      }
+    },
+    {
+      "day": "Trek Day 4",
+      "date": "2026-07-05",
+      "route": "Jergez Valley → Alamaluu Gorge",
+      "breakfast": {
+        "desc": "included at yurt",
+        "qty": 0
+      },
+      "lunch": {
+        "desc": "",
+        "qty": 0
+      },
+      "dinner": {
+        "desc": "",
+        "qty": 0
+      }
+    },
+    {
+      "day": "Trek Day 5",
+      "date": "2026-07-06",
+      "route": "Almaluu Gorge – Altyn Arashan",
+      "breakfast": {
+        "desc": "",
+        "qty": 0
+      },
+      "lunch": {
+        "desc": "",
+        "qty": 0
+      },
+      "dinner": {
+        "desc": "Eco Yurt Camp Arashan — lagman & Kyrgyz cuisine (~850 KGS). Hot springs: ~300 KGS/person",
+        "qty": 0
+      }
+    },
+    {
+      "day": "Trek Day 6",
+      "date": "2026-07-07",
+      "route": "Altyn Arashan – Ala-Kol Lake",
+      "breakfast": {
+        "desc": "yurt inc",
+        "qty": 0
+      },
+      "lunch": {
+        "desc": "",
+        "qty": 0
+      },
+      "dinner": {
+        "desc": "",
+        "qty": 0
+      }
+    },
+    {
+      "day": "Trek Day 7",
+      "date": "2026-07-08",
+      "route": "Ala-Kul – Karakol Gorge",
+      "breakfast": {
+        "desc": "",
+        "qty": 0
+      },
+      "lunch": {
+        "desc": "",
+        "qty": 0
+      },
+      "dinner": {
+        "desc": "Karakol Gorge Yurt",
+        "qty": 0
+      }
+    },
+    {
+      "day": "Trek Day 8",
+      "date": "2026-07-09",
+      "route": "Karakol Gorge – Telety Camp",
+      "breakfast": {
+        "desc": "included at yurt",
+        "qty": 0
+      },
+      "lunch": {
+        "desc": "",
+        "qty": 0
+      },
+      "dinner": {
+        "desc": "",
+        "qty": 0
+      }
+    },
+    {
+      "day": "Trek Day 9",
+      "date": "2026-07-10",
+      "route": "Telety Camp – Jeti-Oguz – Karakol -> Bishkek",
+      "breakfast": {
+        "desc": "",
+        "qty": 0
+      },
+      "lunch": {
+        "desc": "",
+        "qty": 0
+      },
+      "dinner": {
+        "desc": "Navat, Bishkek (own cost)",
+        "qty": 0
+      }
+    }
+  ],
+  "flights": []
 };

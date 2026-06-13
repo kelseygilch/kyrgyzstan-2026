@@ -27,6 +27,8 @@
       itinerary: deepClone(SEED.itinerary), // { TK:[...], TL:[] }
       personal: deepClone(SEED.personal),   // { person: [items] }
       shared: deepClone(SEED.shared),       // [ {qty, carriers[], packed[]} ]
+      meals: deepClone(SEED.meals),         // [ {day,date,route, breakfast/lunch/dinner:{desc,qty}} ]
+      ui: { collapsed: {} },                // collapsed packing categories, keyed "section:Category"
     };
   }
 
@@ -37,6 +39,9 @@
     if (!s.itinerary.TL) s.itinerary.TL = [];
     if (!s.personal) s.personal = base.personal;
     if (!s.shared) s.shared = base.shared;
+    if (!s.meals) s.meals = base.meals;
+    if (!s.ui) s.ui = base.ui;
+    if (!s.ui.collapsed) s.ui.collapsed = {};
     return s;
   }
 
@@ -241,6 +246,29 @@
     return map;
   }
 
+  // Build a collapsible category panel. `section` namespaces the collapsed state
+  // so the same category name in personal vs shared collapses independently.
+  function categoryPanel(section, cat, countText, bodyChildren) {
+    const key = section + ":" + cat;
+    const collapsed = !!state.ui.collapsed[key];
+    const panel = el("div", { class: "pack-cat" + (collapsed ? " collapsed" : "") });
+    const head = el("h3", {}, [
+      el("span", { class: "cat-ico", text: "▾" }),
+      el("span", { text: cat }),
+      countText ? el("span", { class: "cat-count", text: countText }) : null,
+    ]);
+    head.addEventListener("click", () => {
+      const now = !panel.classList.contains("collapsed");
+      panel.classList.toggle("collapsed", now);
+      state.ui.collapsed[key] = now;
+      save();
+    });
+    const body = el("div", { class: "cat-body" }, bodyChildren);
+    panel.appendChild(head);
+    panel.appendChild(body);
+    return panel;
+  }
+
   function renderPersonalList() {
     const root = $("#packing-personal");
     root.innerHTML = "";
@@ -253,15 +281,15 @@
 
     const byCat = groupByCategory(items);
     byCat.forEach((entries, cat) => {
-      const catEl = el("div", { class: "pack-cat" }, [ el("h3", { text: cat }) ]);
-      entries.forEach(({ it, i }) => catEl.appendChild(personalRow(it, i)));
-      catEl.appendChild(el("div", { class: "cat-add" }, [
+      const packedN = entries.filter(e => e.it.packed).length;
+      const body = entries.map(({ it, i }) => personalRow(it, i));
+      body.push(el("div", { class: "cat-add" }, [
         el("button", { class: "btn btn-xs", text: "+ Add item", onclick: () => {
           items.push({ id: uid(activePerson), category: cat, name: "New item", qty: 1, packed: false });
           save(); renderPersonalList();
         } }),
       ]));
-      root.appendChild(catEl);
+      root.appendChild(categoryPanel("personal", cat, `${packedN}/${entries.length}`, body));
     });
   }
 
@@ -312,9 +340,8 @@
     const byCat = groupByCategory(state.shared);
 
     byCat.forEach((entries, cat) => {
-      const catEl = el("div", { class: "pack-cat" }, [ el("h3", { text: cat }) ]);
-      entries.forEach(({ it, i }) => catEl.appendChild(sharedItem(it, i)));
-      root.appendChild(catEl);
+      const body = entries.map(({ it, i }) => sharedItem(it, i));
+      root.appendChild(categoryPanel("shared", cat, `${entries.length} item${entries.length === 1 ? "" : "s"}`, body));
     });
 
     // global add
@@ -385,13 +412,101 @@
   }
 
   // ====================================================================
+  //  FOOD — 9 trek-day meal planner with summing totals
+  // ====================================================================
+  const MEALS = [["breakfast", "Breakfast"], ["lunch", "Lunch"], ["dinner", "Dinner"]];
+
+  function renderFood() {
+    const table = $("#food-table");
+    table.innerHTML = "";
+
+    // header
+    const thead = el("thead", {}, [
+      el("tr", {}, [
+        el("th", { text: "Day" }),
+        ...MEALS.map(([, label]) => el("th", { class: "meal-col", text: label })),
+        el("th", { text: "Day total" }),
+      ]),
+    ]);
+
+    const colTotals = { breakfast: 0, lunch: 0, dinner: 0 };
+    let grand = 0;
+
+    const tbody = el("tbody", {});
+    state.meals.forEach((row, idx) => {
+      let dayTotal = 0;
+      const tds = [
+        el("td", { class: "food-day" }, [
+          el("div", { class: "fd-num", text: row.day }),
+          el("div", { class: "fd-date", text: fmtDate(row.date) }),
+          row.route ? el("div", { class: "fd-route", text: row.route }) : null,
+        ]),
+      ];
+      MEALS.forEach(([key]) => {
+        const meal = row[key];
+        const n = Number(meal.qty) || 0;
+        colTotals[key] += n; dayTotal += n;
+
+        const desc = el("textarea", { rows: 2 });
+        desc.value = meal.desc || "";
+        desc.placeholder = "—";
+        desc.addEventListener("input", () => { meal.desc = desc.value; save(); });
+
+        const qty = el("input", { type: "number", min: "0", step: "1" });
+        qty.value = meal.qty;
+        qty.addEventListener("input", () => { meal.qty = qty.value; save(); refreshFoodTotals(); });
+
+        tds.push(el("td", { class: "meal-cell" }, [
+          desc,
+          el("div", { class: "meal-qty" }, [ el("label", { text: "Servings" }), qty ]),
+        ]));
+      });
+      grand += dayTotal;
+      tds.push(el("td", { class: "col-total", "data-daytotal": idx, text: String(dayTotal) }));
+      tbody.appendChild(el("tr", {}, tds));
+    });
+
+    const tfoot = el("tfoot", {}, [
+      el("tr", {}, [
+        el("td", { text: "Totals (servings)" }),
+        ...MEALS.map(([key]) => el("td", { id: "tot-" + key, text: String(colTotals[key]) })),
+        el("td", { class: "grand", id: "tot-grand", text: String(grand) }),
+      ]),
+    ]);
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    table.appendChild(tfoot);
+    $("#food-meta").textContent = `${state.meals.length} trek days · ${grand} total servings planned`;
+  }
+
+  // Recompute totals in place (no full re-render) so focus stays in the input.
+  function refreshFoodTotals() {
+    const colTotals = { breakfast: 0, lunch: 0, dinner: 0 };
+    let grand = 0;
+    const rows = $$("#food-table tbody tr");
+    state.meals.forEach((row, idx) => {
+      let dayTotal = 0;
+      MEALS.forEach(([key]) => { const n = Number(row[key].qty) || 0; colTotals[key] += n; dayTotal += n; });
+      grand += dayTotal;
+      const cell = $(`#food-table .col-total[data-daytotal="${idx}"]`);
+      if (cell) cell.textContent = String(dayTotal);
+    });
+    MEALS.forEach(([key]) => { const c = $("#tot-" + key); if (c) c.textContent = String(colTotals[key]); });
+    const g = $("#tot-grand"); if (g) g.textContent = String(grand);
+    $("#food-meta").textContent = `${state.meals.length} trek days · ${grand} total servings planned`;
+  }
+
+  // ====================================================================
   //  Tabs + header actions
   // ====================================================================
   function setTab(tab) {
     activeTab = tab;
     $$(".tab").forEach(t => t.classList.toggle("is-active", t.dataset.tab === tab));
     $$(".view").forEach(v => v.classList.toggle("is-active", v.id === "view-" + tab));
-    if (tab === "itinerary") renderItinerary(); else renderPacking();
+    if (tab === "itinerary") renderItinerary();
+    else if (tab === "food") renderFood();
+    else renderPacking();
   }
 
   function exportData() {
