@@ -14,6 +14,13 @@ No build step, no server, no dependencies — just open `index.html` in a browse
 - **Todd & Luci** starts empty — hit **“Copy Trevor & Kelsey's plan across”** to clone
   it, then edit only the days that differ. Add/delete days with the buttons.
 
+### Flights
+- All flight legs grouped by journey (Outbound, Edinburgh→Bishkek, Return), each card
+  showing flight number, airline, departure/arrival times, duration, aircraft and a
+  "+1 day" badge for overnight legs.
+- Times/places/notes are editable inline; add or delete flights as plans change.
+- Seeded from published timetables — confirm against your actual booking.
+
 ### Food
 - A dedicated tab with the **9 trek days** (Trek Day 1–9, with dates + route) as rows.
 - Columns to fill in **Breakfast / Lunch / Dinner** — each with a description and a

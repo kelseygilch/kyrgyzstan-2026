@@ -192,6 +192,53 @@ body {
 .progress { height: 6px; background: var(--line); border-radius: 4px; overflow: hidden; width: 120px; display: inline-block; vertical-align: middle; margin-left: 6px; }
 .progress > span { display: block; height: 100%; background: var(--accent); }
 
+/* ---- Flights ---- */
+.flights-list { display: flex; flex-direction: column; gap: 26px; }
+.flight-journey > h3 {
+  font-family: "Fraunces", serif; font-weight: 600; font-size: 16px; margin: 0 0 10px;
+  display: flex; align-items: baseline; gap: 10px;
+}
+.flight-journey > h3 .leg { font-family: "Inter", sans-serif; font-size: 12px; font-weight: 600; color: var(--ink-soft); }
+.flight-cards { display: flex; flex-direction: column; gap: 10px; }
+.flight-card {
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); border-left: 4px solid var(--sky); padding: 14px 16px;
+}
+.fc-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.fc-no { font-weight: 700; font-size: 15px; background: var(--sky-soft); color: var(--sky); padding: 3px 10px; border-radius: 8px; }
+.fc-airline { font-weight: 600; color: var(--ink); }
+.fc-date { font-size: 12.5px; color: var(--ink-soft); margin-left: auto; }
+.fc-route { display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: center; }
+.fc-port { display: flex; flex-direction: column; gap: 2px; }
+.fc-port.to { text-align: right; }
+.fc-time { font-family: "Fraunces", serif; font-weight: 600; font-size: 22px; line-height: 1; }
+.fc-time input { font: inherit; width: 86px; border: 1px solid transparent; background: transparent; border-radius: 7px; padding: 2px 4px; color: var(--ink); }
+.fc-port.to .fc-time input { text-align: right; }
+.fc-time input:hover { background: #fcfbf8; }
+.fc-time input:focus { outline: none; border-color: var(--sky); background: #fff; }
+.fc-place { font-size: 12.5px; color: var(--ink-soft); }
+.fc-place input { font: inherit; font-size: 12.5px; color: var(--ink-soft); border: 1px solid transparent; background: transparent; border-radius: 6px; padding: 2px 4px; width: 100%; }
+.fc-port.to .fc-place input { text-align: right; }
+.fc-place input:focus { outline: none; border-color: var(--sky); background: #fff; color: var(--ink); }
+.fc-mid { display: flex; flex-direction: column; align-items: center; gap: 3px; color: var(--ink-soft); }
+.fc-mid .fc-dur { font-size: 12px; font-weight: 600; white-space: nowrap; }
+.fc-line { width: 80px; height: 2px; background: var(--line-strong); position: relative; }
+.fc-line::after { content: "✈"; position: absolute; right: -4px; top: -8px; color: var(--sky); font-size: 13px; }
+.fc-plus1 { font-size: 10.5px; font-weight: 700; color: var(--warn); background: var(--warn-soft); padding: 1px 6px; border-radius: 10px; }
+.fc-meta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-soft); align-items: center; }
+.fc-meta .fc-aircraft { font-weight: 600; }
+.fc-notes { flex: 1 1 240px; }
+.fc-notes input { font: inherit; font-size: 12.5px; width: 100%; border: 1px solid transparent; background: transparent; border-radius: 6px; padding: 3px 5px; color: var(--ink-soft); }
+.fc-notes input:hover { background: #fcfbf8; }
+.fc-notes input:focus { outline: none; border-color: var(--sky); background: #fff; }
+.fc-del { margin-left: auto; }
+
+@media (max-width: 720px) {
+  .fc-route { grid-template-columns: 1fr auto 1fr; gap: 8px; }
+  .fc-time { font-size: 18px; } .fc-time input { width: 64px; }
+  .fc-line { width: 36px; }
+}
+
 /* ---- Food / meal plan ---- */
 .section-title { font-family: "Fraunces", serif; font-weight: 600; margin: 0; font-size: 19px; }
 .food-wrap { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow-x: auto; }

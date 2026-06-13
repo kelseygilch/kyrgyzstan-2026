@@ -28,6 +28,7 @@
       personal: deepClone(SEED.personal),   // { person: [items] }
       shared: deepClone(SEED.shared),       // [ {qty, carriers[], packed[]} ]
       meals: deepClone(SEED.meals),         // [ {day,date,route, breakfast/lunch/dinner:{desc,qty}} ]
+      flights: deepClone(SEED.flights),     // [ {journey,leg,date,flightNo,airline,from,to,dep,arr,...} ]
       ui: { collapsed: {} },                // collapsed packing categories, keyed "section:Category"
     };
   }
@@ -40,6 +41,7 @@
     if (!s.personal) s.personal = base.personal;
     if (!s.shared) s.shared = base.shared;
     if (!s.meals) s.meals = base.meals;
+    if (!s.flights) s.flights = base.flights;
     if (!s.ui) s.ui = base.ui;
     if (!s.ui.collapsed) s.ui.collapsed = {};
     return s;
@@ -498,6 +500,88 @@
   }
 
   // ====================================================================
+  //  FLIGHTS
+  // ====================================================================
+  function renderFlights() {
+    const root = $("#flights-list");
+    root.innerHTML = "";
+
+    if (!state.flights.length) {
+      root.appendChild(el("div", { class: "empty-state" }, [
+        el("h3", { text: "No flights yet" }),
+        el("p", { class: "muted", text: "Add a flight to get started." }),
+      ]));
+      return;
+    }
+
+    // group by journey, preserving order of first appearance
+    const order = [];
+    const groups = {};
+    state.flights.forEach((f, i) => {
+      if (!groups[f.journey]) { groups[f.journey] = []; order.push(f.journey); }
+      groups[f.journey].push({ f, i });
+    });
+
+    order.forEach(journey => {
+      const entries = groups[journey];
+      const cards = el("div", { class: "flight-cards" }, entries.map(({ f, i }) => flightCard(f, i)));
+      root.appendChild(el("div", { class: "flight-journey" }, [
+        el("h3", {}, [
+          document.createTextNode(journey),
+          entries[0].f.leg ? el("span", { class: "leg", text: entries[0].f.leg }) : null,
+        ]),
+        cards,
+      ]));
+    });
+  }
+
+  function flightInput(obj, key, cls) {
+    const inp = el("input", { type: "text", class: cls });
+    inp.value = obj[key] || "";
+    inp.addEventListener("input", () => { obj[key] = inp.value; save(); });
+    return inp;
+  }
+
+  function flightCard(f, idx) {
+    const card = el("div", { class: "flight-card" });
+
+    const head = el("div", { class: "fc-head" }, [
+      el("span", { class: "fc-no", text: f.flightNo }),
+      el("span", { class: "fc-airline", text: f.airline }),
+      el("span", { class: "fc-date", text: fmtDate(f.date) }),
+    ]);
+
+    const route = el("div", { class: "fc-route" }, [
+      el("div", { class: "fc-port from" }, [
+        el("div", { class: "fc-time" }, [flightInput(f, "dep", "")]),
+        el("div", { class: "fc-place" }, [flightInput(f, "from", "")]),
+      ]),
+      el("div", { class: "fc-mid" }, [
+        f.duration ? el("span", { class: "fc-dur", text: f.duration }) : null,
+        el("div", { class: "fc-line" }),
+        f.arrOffset ? el("span", { class: "fc-plus1", text: "+" + f.arrOffset + " day" }) : null,
+      ]),
+      el("div", { class: "fc-port to" }, [
+        el("div", { class: "fc-time" }, [flightInput(f, "arr", "")]),
+        el("div", { class: "fc-place" }, [flightInput(f, "to", "")]),
+      ]),
+    ]);
+
+    const meta = el("div", { class: "fc-meta" }, [
+      f.aircraft ? el("span", { class: "fc-aircraft", text: "✈ " + f.aircraft }) : null,
+      el("span", { class: "fc-notes" }, [flightInput(f, "notes", "")]),
+      el("button", { class: "btn btn-danger btn-xs fc-del", text: "Delete", onclick: () => {
+        if (confirm(`Delete flight ${f.flightNo}?`)) { state.flights.splice(idx, 1); save(); renderFlights(); }
+      } }),
+    ]);
+
+    card.appendChild(head);
+    card.appendChild(route);
+    card.appendChild(meta);
+    return card;
+  }
+
+  // ====================================================================
   //  Tabs + header actions
   // ====================================================================
   function setTab(tab) {
@@ -505,6 +589,7 @@
     $$(".tab").forEach(t => t.classList.toggle("is-active", t.dataset.tab === tab));
     $$(".view").forEach(v => v.classList.toggle("is-active", v.id === "view-" + tab));
     if (tab === "itinerary") renderItinerary();
+    else if (tab === "flights") renderFlights();
     else if (tab === "food") renderFood();
     else renderPacking();
   }
@@ -554,6 +639,12 @@
       state.itinerary.TL = deepClone(state.itinerary.TK);
       save(); renderItinerary();
       toast("Copied Trevor & Kelsey's plan to Todd & Luci");
+    });
+
+    $("#btn-add-flight").addEventListener("click", () => {
+      state.flights.push({ journey: "Other", leg: "", date: "", flightNo: "New flight",
+        airline: "", from: "", to: "", dep: "", arr: "", arrOffset: 0, duration: "", aircraft: "", notes: "" });
+      save(); renderFlights();
     });
 
     $("#btn-export").addEventListener("click", exportData);

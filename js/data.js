@@ -1,5 +1,5 @@
 // Auto-generated seed data for the Kyrgyzstan Trip Planner.
-// Source: Scotland_Kyrgyzstan 2026.xlsx (Itinerary) + NZ/Peru/Larapinta packing lists.
+// Source: Scotland_Kyrgyzstan 2026.xlsx + NZ/Peru/Larapinta packing lists + web flight schedules.
 // Only the DEFAULTS. Live edits are saved in your browser (localStorage).
 const SEED = {
   "people": [
@@ -2228,5 +2228,111 @@ const SEED = {
       }
     }
   ],
-  "flights": []
+  "flights": [
+    {
+      "journey": "Outbound · Melbourne → Edinburgh",
+      "leg": "19–20 Jun 2026",
+      "date": "2026-06-19",
+      "flightNo": "QF37",
+      "airline": "Qantas",
+      "from": "Melbourne (MEL) · T2",
+      "to": "Singapore (SIN) · T1",
+      "dep": "15:55",
+      "arr": "22:05",
+      "arrOffset": 0,
+      "duration": "8h 10m",
+      "aircraft": "Airbus A330-200",
+      "notes": ""
+    },
+    {
+      "journey": "Outbound · Melbourne → Edinburgh",
+      "leg": "19–20 Jun 2026",
+      "date": "2026-06-19",
+      "flightNo": "QF1",
+      "airline": "Qantas",
+      "from": "Singapore (SIN) · T1",
+      "to": "London Heathrow (LHR) · T3",
+      "dep": "23:20",
+      "arr": "06:35",
+      "arrOffset": 1,
+      "duration": "13h 15m",
+      "aircraft": "Airbus A380-800",
+      "notes": "Connection in Singapore ~1h 15m from QF37."
+    },
+    {
+      "journey": "Outbound · Melbourne → Edinburgh",
+      "leg": "19–20 Jun 2026",
+      "date": "2026-06-20",
+      "flightNo": "BA1442",
+      "airline": "British Airways",
+      "from": "London Heathrow (LHR) · T5",
+      "to": "Edinburgh (EDI)",
+      "dep": "11:40",
+      "arr": "13:05",
+      "arrOffset": 0,
+      "duration": "1h 25m",
+      "aircraft": "Airbus A319",
+      "notes": "Departure time varies by day (also seen 08:25 / 08:55) — confirm against your booking."
+    },
+    {
+      "journey": "Edinburgh → Bishkek",
+      "leg": "26–27 Jun 2026",
+      "date": "2026-06-26",
+      "flightNo": "TK1344",
+      "airline": "Turkish Airlines",
+      "from": "Edinburgh (EDI)",
+      "to": "Istanbul (IST)",
+      "dep": "10:40",
+      "arr": "17:05",
+      "arrOffset": 0,
+      "duration": "4h 25m",
+      "aircraft": "Airbus A321neo",
+      "notes": "Times local (EDI BST → IST +03)."
+    },
+    {
+      "journey": "Edinburgh → Bishkek",
+      "leg": "26–27 Jun 2026",
+      "date": "2026-06-26",
+      "flightNo": "TK348",
+      "airline": "Turkish Airlines",
+      "from": "Istanbul (IST)",
+      "to": "Bishkek Manas (FRU)",
+      "dep": "20:25",
+      "arr": "04:30",
+      "arrOffset": 1,
+      "duration": "5h 05m",
+      "aircraft": "Airbus A321neo",
+      "notes": "Layover in Istanbul ~3h 20m. Arrives Bishkek ~04:30 Sat 27 Jun — matches Day 9."
+    },
+    {
+      "journey": "Return · Bishkek → Melbourne",
+      "leg": "12–13 Jul 2026",
+      "date": "2026-07-12",
+      "flightNo": "EK2419",
+      "airline": "Emirates",
+      "from": "Bishkek Manas (FRU)",
+      "to": "Dubai (DXB) · T3",
+      "dep": "05:50",
+      "arr": "08:10",
+      "arrOffset": 0,
+      "duration": "4h 20m",
+      "aircraft": "Boeing 737 MAX 8",
+      "notes": "Operated by flydubai (FZ1690). Departs Bishkek 05:50 — matches Day 24."
+    },
+    {
+      "journey": "Return · Bishkek → Melbourne",
+      "leg": "12–13 Jul 2026",
+      "date": "2026-07-12",
+      "flightNo": "EK406",
+      "airline": "Emirates",
+      "from": "Dubai (DXB) · T3",
+      "to": "Melbourne (MEL) · T2",
+      "dep": "10:05",
+      "arr": "05:30",
+      "arrOffset": 1,
+      "duration": "13h 25m",
+      "aircraft": "Airbus A380-800",
+      "notes": "Layover in Dubai ~1h 55m. Arrives Melbourne 05:30 Mon 13 Jul — matches Day 25."
+    }
+  ]
 };

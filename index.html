@@ -19,6 +19,7 @@
     </div>
     <nav class="tabs" id="tabs">
       <button class="tab is-active" data-tab="itinerary">Itinerary</button>
+      <button class="tab" data-tab="flights">Flights</button>
       <button class="tab" data-tab="food">Food</button>
       <button class="tab" data-tab="packing">Packing</button>
     </nav>
@@ -42,6 +43,20 @@
         </div>
       </div>
       <div id="itinerary-list" class="itinerary-list"></div>
+    </section>
+
+    <!-- FLIGHTS -->
+    <section class="view" id="view-flights">
+      <div class="view-toolbar">
+        <div>
+          <h2 class="section-title">Flights</h2>
+          <p class="muted">Scheduled times pulled from published timetables — confirm against your booking. All times local.</p>
+        </div>
+        <div class="toolbar-right">
+          <button class="btn btn-primary" id="btn-add-flight">+ Add flight</button>
+        </div>
+      </div>
+      <div id="flights-list" class="flights-list"></div>
     </section>
 
     <!-- FOOD -->
