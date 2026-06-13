@@ -1,0 +1,12 @@
+# Source spreadsheets (kept local, not published)
+*.xlsx
+*.xlsm
+*.xls
+*.csv
+
+# Windows / editor cruft
+desktop.ini
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/

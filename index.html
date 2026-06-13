@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kyrgyzstan 2026 · Trip Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-mark">⛰</span>
+      <div>
+        <h1>Kyrgyzstan 2026</h1>
+        <p class="subtitle">Skye · Bishkek · Jyrgalan → Jeti-Oguz Traverse</p>
+      </div>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button class="tab is-active" data-tab="itinerary">Itinerary</button>
+      <button class="tab" data-tab="packing">Packing</button>
+    </nav>
+    <div class="header-actions">
+      <button class="btn btn-ghost" id="btn-export" title="Download all data as a JSON file">Export</button>
+      <button class="btn btn-ghost" id="btn-import" title="Load data from a JSON file">Import</button>
+      <button class="btn btn-ghost btn-danger" id="btn-reset" title="Reset everything to the spreadsheet defaults">Reset</button>
+      <input type="file" id="import-file" accept="application/json" hidden />
+    </div>
+  </header>
+
+  <main class="app-main">
+    <!-- ITINERARY -->
+    <section class="view is-active" id="view-itinerary">
+      <div class="view-toolbar">
+        <div class="group-switch" id="group-switch"></div>
+        <div class="toolbar-right">
+          <span class="hint" id="itin-meta"></span>
+          <button class="btn btn-secondary" id="btn-copy-across" hidden>Copy Trevor &amp; Kelsey's plan across</button>
+          <button class="btn btn-primary" id="btn-add-day">+ Add day</button>
+        </div>
+      </div>
+      <div id="itinerary-list" class="itinerary-list"></div>
+    </section>
+
+    <!-- PACKING -->
+    <section class="view" id="view-packing">
+      <div class="view-toolbar">
+        <div class="person-switch" id="person-switch"></div>
+        <div class="toolbar-right">
+          <span class="hint" id="pack-meta"></span>
+        </div>
+      </div>
+
+      <div id="packing-personal" class="packing-panel"></div>
+
+      <div class="shared-header">
+        <h2>Shared gear <span class="muted">— across all four of you</span></h2>
+        <p class="muted">Flag anything as shared, set how many the group needs, and assign who carries each one.</p>
+      </div>
+      <div id="packing-shared" class="packing-panel"></div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
