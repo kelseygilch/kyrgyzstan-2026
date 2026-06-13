@@ -2073,161 +2073,764 @@ const SEED = {
       ]
     }
   ],
-  "meals": [
-    {
-      "day": "Trek Day 1",
-      "date": "2026-07-02",
-      "route": "Jyrgalan → Terim-Tor Bulak Valley",
-      "breakfast": {
-        "desc": "bring from Jyrgalan",
-        "qty": 0
+  "mealsByPerson": {
+    "Trevor": [
+      {
+        "day": "Trek Day 1",
+        "date": "2026-07-02",
+        "route": "Jyrgalan → Terim-Tor Bulak Valley",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
       },
-      "lunch": {
-        "desc": "",
-        "qty": 0
+      {
+        "day": "Trek Day 2",
+        "date": "2026-07-03",
+        "route": "Terim-Tor Bulak Valley → Boz-Uchuk Lakes",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
       },
-      "dinner": {
-        "desc": "",
-        "qty": 0
+      {
+        "day": "Trek Day 3",
+        "date": "2026-07-04",
+        "route": "Boz-Uchuk Lakes → Jergez Gorge",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "Yurt Kyrgyz Life Jergez Camp (~3,000 m)",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
+      },
+      {
+        "day": "Trek Day 4",
+        "date": "2026-07-05",
+        "route": "Jergez Valley → Alamaluu Gorge",
+        "bProvided": true,
+        "bNote": "Yurt Kyrgyz Life Jergez Camp (~3,000 m)",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "day": "Trek Day 5",
+        "date": "2026-07-06",
+        "route": "Almaluu Gorge – Altyn Arashan",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "2, 2 person yurt with dinner Ethnoyurt argymak, Altyn-Arashan (~2,540 m)",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
+      },
+      {
+        "day": "Trek Day 6",
+        "date": "2026-07-07",
+        "route": "Altyn Arashan – Ala-Kol Lake",
+        "bProvided": true,
+        "bNote": "2, 2 person yurt with dinner Ethnoyurt argymak, Altyn-Arashan (~2,540 m)",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "day": "Trek Day 7",
+        "date": "2026-07-08",
+        "route": "Ala-Kul – Karakol Gorge",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "Yurt at Karakol Gorge (3200 m)",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
+      },
+      {
+        "day": "Trek Day 8",
+        "date": "2026-07-09",
+        "route": "Karakol Gorge – Telety Camp",
+        "bProvided": true,
+        "bNote": "Yurt at Karakol Gorge (3200 m)",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "day": "Trek Day 9",
+        "date": "2026-07-10",
+        "route": "Telety Camp – Jeti-Oguz – Karakol -> Bishkek",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "Bishkek — Sheraton",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
       }
-    },
-    {
-      "day": "Trek Day 2",
-      "date": "2026-07-03",
-      "route": "Terim-Tor Bulak Valley → Boz-Uchuk Lakes",
-      "breakfast": {
-        "desc": "",
-        "qty": 0
+    ],
+    "Kelsey": [
+      {
+        "day": "Trek Day 1",
+        "date": "2026-07-02",
+        "route": "Jyrgalan → Terim-Tor Bulak Valley",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
       },
-      "lunch": {
-        "desc": "",
-        "qty": 0
+      {
+        "day": "Trek Day 2",
+        "date": "2026-07-03",
+        "route": "Terim-Tor Bulak Valley → Boz-Uchuk Lakes",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
       },
-      "dinner": {
-        "desc": "",
-        "qty": 0
+      {
+        "day": "Trek Day 3",
+        "date": "2026-07-04",
+        "route": "Boz-Uchuk Lakes → Jergez Gorge",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "Yurt Kyrgyz Life Jergez Camp (~3,000 m)",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
+      },
+      {
+        "day": "Trek Day 4",
+        "date": "2026-07-05",
+        "route": "Jergez Valley → Alamaluu Gorge",
+        "bProvided": true,
+        "bNote": "Yurt Kyrgyz Life Jergez Camp (~3,000 m)",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "day": "Trek Day 5",
+        "date": "2026-07-06",
+        "route": "Almaluu Gorge – Altyn Arashan",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "2, 2 person yurt with dinner Ethnoyurt argymak, Altyn-Arashan (~2,540 m)",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
+      },
+      {
+        "day": "Trek Day 6",
+        "date": "2026-07-07",
+        "route": "Altyn Arashan – Ala-Kol Lake",
+        "bProvided": true,
+        "bNote": "2, 2 person yurt with dinner Ethnoyurt argymak, Altyn-Arashan (~2,540 m)",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "day": "Trek Day 7",
+        "date": "2026-07-08",
+        "route": "Ala-Kul – Karakol Gorge",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "Yurt at Karakol Gorge (3200 m)",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
+      },
+      {
+        "day": "Trek Day 8",
+        "date": "2026-07-09",
+        "route": "Karakol Gorge – Telety Camp",
+        "bProvided": true,
+        "bNote": "Yurt at Karakol Gorge (3200 m)",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "day": "Trek Day 9",
+        "date": "2026-07-10",
+        "route": "Telety Camp – Jeti-Oguz – Karakol -> Bishkek",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "Bishkek — Sheraton",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
       }
-    },
-    {
-      "day": "Trek Day 3",
-      "date": "2026-07-04",
-      "route": "Boz-Uchuk Lakes → Jergez Gorge",
-      "breakfast": {
-        "desc": "",
-        "qty": 0
+    ],
+    "Todd": [
+      {
+        "day": "Trek Day 1",
+        "date": "2026-07-02",
+        "route": "Jyrgalan → Terim-Tor Bulak Valley",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
       },
-      "lunch": {
-        "desc": "",
-        "qty": 0
+      {
+        "day": "Trek Day 2",
+        "date": "2026-07-03",
+        "route": "Terim-Tor Bulak Valley → Boz-Uchuk Lakes",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
       },
-      "dinner": {
-        "desc": "Kyrgyz Life Jergez Camp (~850 KGS dinner)",
-        "qty": 0
+      {
+        "day": "Trek Day 3",
+        "date": "2026-07-04",
+        "route": "Boz-Uchuk Lakes → Jergez Gorge",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "Yurt Kyrgyz Life Jergez Camp (~3,000 m)",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
+      },
+      {
+        "day": "Trek Day 4",
+        "date": "2026-07-05",
+        "route": "Jergez Valley → Alamaluu Gorge",
+        "bProvided": true,
+        "bNote": "Yurt Kyrgyz Life Jergez Camp (~3,000 m)",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "day": "Trek Day 5",
+        "date": "2026-07-06",
+        "route": "Almaluu Gorge – Altyn Arashan",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "2, 2 person yurt with dinner Ethnoyurt argymak, Altyn-Arashan (~2,540 m)",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
+      },
+      {
+        "day": "Trek Day 6",
+        "date": "2026-07-07",
+        "route": "Altyn Arashan – Ala-Kol Lake",
+        "bProvided": true,
+        "bNote": "2, 2 person yurt with dinner Ethnoyurt argymak, Altyn-Arashan (~2,540 m)",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "day": "Trek Day 7",
+        "date": "2026-07-08",
+        "route": "Ala-Kul – Karakol Gorge",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "Yurt at Karakol Gorge (3200 m)",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
+      },
+      {
+        "day": "Trek Day 8",
+        "date": "2026-07-09",
+        "route": "Karakol Gorge – Telety Camp",
+        "bProvided": true,
+        "bNote": "Yurt at Karakol Gorge (3200 m)",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "day": "Trek Day 9",
+        "date": "2026-07-10",
+        "route": "Telety Camp – Jeti-Oguz – Karakol -> Bishkek",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "Bishkek — Sheraton",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
       }
-    },
-    {
-      "day": "Trek Day 4",
-      "date": "2026-07-05",
-      "route": "Jergez Valley → Alamaluu Gorge",
-      "breakfast": {
-        "desc": "included at yurt",
-        "qty": 0
+    ],
+    "Luci": [
+      {
+        "day": "Trek Day 1",
+        "date": "2026-07-02",
+        "route": "Jyrgalan → Terim-Tor Bulak Valley",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
       },
-      "lunch": {
-        "desc": "",
-        "qty": 0
+      {
+        "day": "Trek Day 2",
+        "date": "2026-07-03",
+        "route": "Terim-Tor Bulak Valley → Boz-Uchuk Lakes",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
       },
-      "dinner": {
-        "desc": "",
-        "qty": 0
+      {
+        "day": "Trek Day 3",
+        "date": "2026-07-04",
+        "route": "Boz-Uchuk Lakes → Jergez Gorge",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "Yurt Kyrgyz Life Jergez Camp (~3,000 m)",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
+      },
+      {
+        "day": "Trek Day 4",
+        "date": "2026-07-05",
+        "route": "Jergez Valley → Alamaluu Gorge",
+        "bProvided": true,
+        "bNote": "Yurt Kyrgyz Life Jergez Camp (~3,000 m)",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "day": "Trek Day 5",
+        "date": "2026-07-06",
+        "route": "Almaluu Gorge – Altyn Arashan",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "2, 2 person yurt with dinner Ethnoyurt argymak, Altyn-Arashan (~2,540 m)",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
+      },
+      {
+        "day": "Trek Day 6",
+        "date": "2026-07-07",
+        "route": "Altyn Arashan – Ala-Kol Lake",
+        "bProvided": true,
+        "bNote": "2, 2 person yurt with dinner Ethnoyurt argymak, Altyn-Arashan (~2,540 m)",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "day": "Trek Day 7",
+        "date": "2026-07-08",
+        "route": "Ala-Kul – Karakol Gorge",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "Yurt at Karakol Gorge (3200 m)",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
+      },
+      {
+        "day": "Trek Day 8",
+        "date": "2026-07-09",
+        "route": "Karakol Gorge – Telety Camp",
+        "bProvided": true,
+        "bNote": "Yurt at Karakol Gorge (3200 m)",
+        "dProvided": false,
+        "dNote": "",
+        "breakfast": [],
+        "lunch": [],
+        "dinner": [
+          {
+            "name": "Dehydrated meal",
+            "qty": 1
+          }
+        ]
+      },
+      {
+        "day": "Trek Day 9",
+        "date": "2026-07-10",
+        "route": "Telety Camp – Jeti-Oguz – Karakol -> Bishkek",
+        "bProvided": false,
+        "bNote": "",
+        "dProvided": true,
+        "dNote": "Bishkek — Sheraton",
+        "breakfast": [
+          {
+            "name": "Oatmeal",
+            "qty": 2
+          },
+          {
+            "name": "Coffee",
+            "qty": 1
+          }
+        ],
+        "lunch": [],
+        "dinner": []
       }
-    },
-    {
-      "day": "Trek Day 5",
-      "date": "2026-07-06",
-      "route": "Almaluu Gorge – Altyn Arashan",
-      "breakfast": {
-        "desc": "",
-        "qty": 0
-      },
-      "lunch": {
-        "desc": "",
-        "qty": 0
-      },
-      "dinner": {
-        "desc": "Eco Yurt Camp Arashan — lagman & Kyrgyz cuisine (~850 KGS). Hot springs: ~300 KGS/person",
-        "qty": 0
-      }
-    },
-    {
-      "day": "Trek Day 6",
-      "date": "2026-07-07",
-      "route": "Altyn Arashan – Ala-Kol Lake",
-      "breakfast": {
-        "desc": "yurt inc",
-        "qty": 0
-      },
-      "lunch": {
-        "desc": "",
-        "qty": 0
-      },
-      "dinner": {
-        "desc": "",
-        "qty": 0
-      }
-    },
-    {
-      "day": "Trek Day 7",
-      "date": "2026-07-08",
-      "route": "Ala-Kul – Karakol Gorge",
-      "breakfast": {
-        "desc": "",
-        "qty": 0
-      },
-      "lunch": {
-        "desc": "",
-        "qty": 0
-      },
-      "dinner": {
-        "desc": "Karakol Gorge Yurt",
-        "qty": 0
-      }
-    },
-    {
-      "day": "Trek Day 8",
-      "date": "2026-07-09",
-      "route": "Karakol Gorge – Telety Camp",
-      "breakfast": {
-        "desc": "included at yurt",
-        "qty": 0
-      },
-      "lunch": {
-        "desc": "",
-        "qty": 0
-      },
-      "dinner": {
-        "desc": "",
-        "qty": 0
-      }
-    },
-    {
-      "day": "Trek Day 9",
-      "date": "2026-07-10",
-      "route": "Telety Camp – Jeti-Oguz – Karakol -> Bishkek",
-      "breakfast": {
-        "desc": "",
-        "qty": 0
-      },
-      "lunch": {
-        "desc": "",
-        "qty": 0
-      },
-      "dinner": {
-        "desc": "Navat, Bishkek (own cost)",
-        "qty": 0
-      }
-    }
-  ],
+    ]
+  },
   "flights": [
     {
       "journey": "Outbound · Melbourne → Edinburgh",

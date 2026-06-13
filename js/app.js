@@ -11,6 +11,7 @@
   let activeTab = "itinerary";
   let activeGroup = "TK";
   let activePerson = PEOPLE[0];
+  let activeFoodPerson = PEOPLE[0];
 
   function deepClone(o) { return JSON.parse(JSON.stringify(o)); }
 
@@ -27,7 +28,7 @@
       itinerary: deepClone(SEED.itinerary), // { TK:[...], TL:[] }
       personal: deepClone(SEED.personal),   // { person: [items] }
       shared: deepClone(SEED.shared),       // [ {qty, carriers[], packed[]} ]
-      meals: deepClone(SEED.meals),         // [ {day,date,route, breakfast/lunch/dinner:{desc,qty}} ]
+      mealsByPerson: deepClone(SEED.mealsByPerson), // { person: [ {day,date,route, bProvided,dProvided, breakfast/lunch/dinner:[{name,qty}]} ] }
       flights: deepClone(SEED.flights),     // [ {journey,leg,date,flightNo,airline,from,to,dep,arr,...} ]
       ui: { collapsed: {} },                // collapsed packing categories, keyed "section:Category"
     };
@@ -40,7 +41,8 @@
     if (!s.itinerary.TL) s.itinerary.TL = [];
     if (!s.personal) s.personal = base.personal;
     if (!s.shared) s.shared = base.shared;
-    if (!s.meals) s.meals = base.meals;
+    if (!s.mealsByPerson) s.mealsByPerson = base.mealsByPerson;
+    if (s.meals) delete s.meals; // old single-list format is superseded by per-person plans
     if (!s.flights) s.flights = base.flights;
     if (!s.ui) s.ui = base.ui;
     if (!s.ui.collapsed) s.ui.collapsed = {};
@@ -431,29 +433,37 @@
   }
 
   // ====================================================================
-  //  FOOD — 9 trek-day meal planner with summing totals
+  //  FOOD — per-person trek meal plan that sums up like foods
   // ====================================================================
   const MEALS = [["breakfast", "Breakfast"], ["lunch", "Lunch"], ["dinner", "Dinner"]];
 
+  function renderFoodSwitch() {
+    const wrap = $("#food-person-switch");
+    wrap.innerHTML = "";
+    PEOPLE.forEach(p => {
+      wrap.appendChild(el("button", {
+        class: "switch-btn" + (p === activeFoodPerson ? " is-active" : ""),
+        onclick: () => { activeFoodPerson = p; renderFood(); },
+        text: p,
+      }));
+    });
+  }
+
   function renderFood() {
+    renderFoodSwitch();
+    const meals = state.mealsByPerson[activeFoodPerson];
     const table = $("#food-table");
     table.innerHTML = "";
 
-    // header
-    const thead = el("thead", {}, [
+    table.appendChild(el("thead", {}, [
       el("tr", {}, [
         el("th", { text: "Day" }),
         ...MEALS.map(([, label]) => el("th", { class: "meal-col", text: label })),
-        el("th", { text: "Day total" }),
       ]),
-    ]);
-
-    const colTotals = { breakfast: 0, lunch: 0, dinner: 0 };
-    let grand = 0;
+    ]));
 
     const tbody = el("tbody", {});
-    state.meals.forEach((row, idx) => {
-      let dayTotal = 0;
+    meals.forEach((row, idx) => {
       const tds = [
         el("td", { class: "food-day" }, [
           el("div", { class: "fd-num", text: row.day }),
@@ -461,59 +471,89 @@
           row.route ? el("div", { class: "fd-route", text: row.route }) : null,
         ]),
       ];
-      MEALS.forEach(([key]) => {
-        const meal = row[key];
-        const n = Number(meal.qty) || 0;
-        colTotals[key] += n; dayTotal += n;
-
-        const desc = el("textarea", { rows: 2 });
-        desc.value = meal.desc || "";
-        desc.placeholder = "—";
-        desc.addEventListener("input", () => { meal.desc = desc.value; save(); });
-
-        const qty = el("input", { type: "number", min: "0", step: "1" });
-        qty.value = meal.qty;
-        qty.addEventListener("input", () => { meal.qty = qty.value; save(); refreshFoodTotals(); });
-
-        tds.push(el("td", { class: "meal-cell" }, [
-          desc,
-          el("div", { class: "meal-qty" }, [ el("label", { text: "Servings" }), qty ]),
-        ]));
-      });
-      grand += dayTotal;
-      tds.push(el("td", { class: "col-total", "data-daytotal": idx, text: String(dayTotal) }));
+      tds.push(mealCell(row, idx, "breakfast", row.bProvided, row.bNote));
+      tds.push(mealCell(row, idx, "lunch", false, ""));
+      tds.push(mealCell(row, idx, "dinner", row.dProvided, row.dNote));
       tbody.appendChild(el("tr", {}, tds));
     });
-
-    const tfoot = el("tfoot", {}, [
-      el("tr", {}, [
-        el("td", { text: "Totals (servings)" }),
-        ...MEALS.map(([key]) => el("td", { id: "tot-" + key, text: String(colTotals[key]) })),
-        el("td", { class: "grand", id: "tot-grand", text: String(grand) }),
-      ]),
-    ]);
-
-    table.appendChild(thead);
     table.appendChild(tbody);
-    table.appendChild(tfoot);
-    $("#food-meta").textContent = `${state.meals.length} trek days · ${grand} total servings planned`;
+
+    renderFoodSummary();
   }
 
-  // Recompute totals in place (no full re-render) so focus stays in the input.
-  function refreshFoodTotals() {
-    const colTotals = { breakfast: 0, lunch: 0, dinner: 0 };
-    let grand = 0;
-    const rows = $$("#food-table tbody tr");
-    state.meals.forEach((row, idx) => {
-      let dayTotal = 0;
-      MEALS.forEach(([key]) => { const n = Number(row[key].qty) || 0; colTotals[key] += n; dayTotal += n; });
-      grand += dayTotal;
-      const cell = $(`#food-table .col-total[data-daytotal="${idx}"]`);
-      if (cell) cell.textContent = String(dayTotal);
-    });
-    MEALS.forEach(([key]) => { const c = $("#tot-" + key); if (c) c.textContent = String(colTotals[key]); });
-    const g = $("#tot-grand"); if (g) g.textContent = String(grand);
-    $("#food-meta").textContent = `${state.meals.length} trek days · ${grand} total servings planned`;
+  function mealCell(row, idx, key, provided, note) {
+    const cell = el("td", { class: "meal-cell" });
+    if (provided) {
+      cell.appendChild(el("div", { class: "provided-note" }, [
+        el("span", {}, [
+          document.createTextNode("🛖 Provided"),
+          note ? el("span", { class: "pn-sub", text: trimAccom(note) }) : null,
+        ]),
+      ]));
+    }
+    const items = row[key];
+    items.forEach((it, i) => cell.appendChild(foodItemRow(row, key, i)));
+    cell.appendChild(el("button", {
+      class: "meal-add", text: "+ food", onclick: () => {
+        items.push({ name: "", qty: 1 }); save(); renderFood();
+      }
+    }));
+    return cell;
+  }
+
+  function foodItemRow(row, key, i) {
+    const items = row[key];
+    const it = items[i];
+    const qty = el("input", { class: "fi-qty", type: "number", min: "0", step: "1" });
+    qty.value = it.qty;
+    qty.addEventListener("input", () => { it.qty = qty.value; save(); renderFoodSummary(); });
+
+    const name = el("input", { class: "fi-name", type: "text" });
+    name.value = it.name; name.placeholder = "food item";
+    name.addEventListener("input", () => { it.name = name.value; save(); renderFoodSummary(); });
+
+    const del = el("button", { class: "fi-del", text: "✕", title: "Remove", onclick: () => {
+      items.splice(i, 1); save(); renderFood();
+    } });
+
+    return el("div", { class: "food-item-row" }, [qty, name, del]);
+  }
+
+  // Sum up like foods across all meals/days for the active person.
+  function renderFoodSummary() {
+    const meals = state.mealsByPerson[activeFoodPerson];
+    const totals = new Map(); // lowerName -> { name, qty }
+    meals.forEach(row => MEALS.forEach(([key]) => {
+      row[key].forEach(it => {
+        const nm = (it.name || "").trim();
+        if (!nm) return;
+        const k = nm.toLowerCase();
+        const n = Number(it.qty) || 0;
+        if (!totals.has(k)) totals.set(k, { name: nm, qty: 0 });
+        totals.get(k).qty += n;
+      });
+    }));
+
+    const list = Array.from(totals.values()).sort((a, b) => b.qty - a.qty || a.name.localeCompare(b.name));
+    const root = $("#food-summary");
+    root.innerHTML = "";
+    root.appendChild(el("h3", { text: `${activeFoodPerson}'s food to pack` }));
+    root.appendChild(el("p", { class: "fs-sub", text: "Totals of like items across all 9 trek days (provided yurt/hotel meals excluded)." }));
+    if (!list.length) {
+      root.appendChild(el("div", { class: "fs-empty", text: "No food items yet — add some above." }));
+      return;
+    }
+    root.appendChild(el("div", { class: "fs-chips" }, list.map(t =>
+      el("span", { class: "fs-chip" }, [
+        el("span", { class: "fs-n", text: String(t.qty) }),
+        el("span", { class: "fs-name", text: t.name }),
+      ])
+    )));
+  }
+
+  function trimAccom(s) {
+    // condense an accommodation string for the "provided" sub-label
+    return (s || "").replace(/\s*\(.*?\)\s*/g, " ").replace(/\s+/g, " ").trim();
   }
 
   // ====================================================================

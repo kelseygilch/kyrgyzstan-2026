@@ -22,11 +22,16 @@ No build step, no server, no dependencies — just open `index.html` in a browse
 - Seeded from published timetables — confirm against your actual booking.
 
 ### Food
-- A dedicated tab with the **9 trek days** (Trek Day 1–9, with dates + route) as rows.
-- Columns to fill in **Breakfast / Lunch / Dinner** — each with a description and a
-  **servings** count. Pre-filled with any meal notes already in the itinerary.
-- The **totals row** at the bottom sums servings per meal (and a grand total), plus a
-  per-day total column, so you know how much to buy and pack.
+- **Per-person** meal plans (Trevor / Kelsey / Todd / Luci), switchable like Packing.
+- The **9 trek days** as rows, with **Breakfast / Lunch / Dinner** columns. Each meal holds
+  a list of **food items** (name + quantity) you can add/edit/remove.
+- Sensible defaults: every breakfast = **2 Oatmeal + 1 Coffee**, every dinner =
+  **1 Dehydrated meal**, no default lunch.
+- **Yurt/hotel logic:** nights at a yurt (or the Bishkek hotel) automatically skip that
+  night's dinner and the next morning's breakfast — those cells show "🛖 Provided" instead,
+  since the camp feeds you.
+- A **summary** at the bottom sums up like foods across all days for that person
+  (e.g. *12 Oatmeal · 6 Coffee · 5 Dehydrated meal*) so you know what to buy and pack.
 
 ### Packing
 - Four people: **Trevor, Kelsey, Todd, Luci**, each with their own personal checklist

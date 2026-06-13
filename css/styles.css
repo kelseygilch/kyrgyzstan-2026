@@ -261,19 +261,40 @@ body {
 .food-day .fd-num { font-weight: 700; }
 .food-day .fd-date { font-size: 11px; color: var(--ink-soft); }
 .food-day .fd-route { font-size: 11.5px; color: var(--ink-soft); white-space: normal; max-width: 150px; }
-.meal-cell { min-width: 150px; }
-.meal-cell textarea {
-  width: 100%; font: inherit; font-size: 13px; border: 1px solid transparent; background: transparent;
-  border-radius: 7px; padding: 5px 6px; resize: vertical; min-height: 34px; color: var(--ink);
+.meal-cell { min-width: 170px; }
+.food-item-row { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; }
+.food-item-row .fi-qty {
+  width: 42px; font: inherit; font-size: 13px; text-align: center;
+  border: 1px solid var(--line); border-radius: 7px; padding: 4px;
 }
-.meal-cell textarea:hover { background: #fcfbf8; }
-.meal-cell textarea:focus { outline: none; border-color: var(--accent); background: #fff; }
-.meal-qty { display: flex; align-items: center; gap: 5px; margin-top: 4px; }
-.meal-qty label { font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-soft); font-weight: 600; }
-.meal-qty input { width: 52px; font: inherit; font-size: 13px; text-align: center; border: 1px solid var(--line); border-radius: 7px; padding: 4px; }
-.food-table tfoot td { background: #faf8f2; font-weight: 700; }
-.food-table tfoot .grand { background: var(--accent); color: #fff; }
-.col-total { font-weight: 700; color: var(--accent-ink); }
+.food-item-row .fi-name {
+  flex: 1 1 auto; font: inherit; font-size: 13px; color: var(--ink);
+  border: 1px solid var(--line); border-radius: 7px; padding: 4px 7px; background: #fcfbf8; min-width: 70px;
+}
+.food-item-row .fi-name:focus, .food-item-row .fi-qty:focus { outline: none; border-color: var(--accent); background: #fff; }
+.food-item-row .fi-del {
+  border: 0; background: transparent; color: var(--ink-soft); cursor: pointer; font-size: 15px;
+  line-height: 1; padding: 2px 4px; border-radius: 6px;
+}
+.food-item-row .fi-del:hover { color: var(--warn); background: var(--warn-soft); }
+.meal-add { border: 1px dashed var(--line-strong); background: transparent; color: var(--ink-soft);
+  font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; padding: 4px 9px; border-radius: 7px; }
+.meal-add:hover { border-color: var(--accent); color: var(--accent); }
+.provided-note {
+  display: inline-flex; align-items: flex-start; gap: 5px; font-size: 12px; font-weight: 600;
+  color: var(--accent-ink); background: var(--accent-soft); border-radius: 8px; padding: 5px 9px; margin-bottom: 6px;
+}
+.provided-note .pn-sub { display: block; font-weight: 400; color: var(--ink-soft); font-size: 11px; }
+
+/* food summary */
+.food-summary { margin-top: 22px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 18px; }
+.food-summary h3 { font-family: "Fraunces", serif; font-weight: 600; margin: 0 0 4px; font-size: 17px; }
+.food-summary .fs-sub { font-size: 12.5px; color: var(--ink-soft); margin: 0 0 14px; }
+.fs-chips { display: flex; flex-wrap: wrap; gap: 9px; }
+.fs-chip { display: inline-flex; align-items: baseline; gap: 7px; background: #faf8f2; border: 1px solid var(--line); border-radius: 22px; padding: 7px 14px; }
+.fs-chip .fs-n { font-family: "Fraunces", serif; font-weight: 600; font-size: 17px; color: var(--accent); }
+.fs-chip .fs-name { font-size: 13.5px; font-weight: 500; }
+.fs-empty { color: var(--ink-soft); font-size: 13px; }
 
 /* ---- Toast ---- */
 .toast {
