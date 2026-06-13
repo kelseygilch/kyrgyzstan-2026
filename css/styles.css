@@ -136,6 +136,13 @@ body {
 .field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); background: #fff; }
 .day-detail-actions { display: flex; justify-content: flex-end; margin-top: 12px; }
 
+.day-flights { margin-top: 12px; padding: 10px 12px; background: var(--sky-soft); border: 1px solid #cfe0ef; border-radius: 10px; }
+.day-flights-label { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; color: var(--sky); margin-bottom: 6px; }
+.day-flight-row { display: flex; gap: 10px; align-items: baseline; font-size: 13px; padding: 2px 0; flex-wrap: wrap; }
+.day-flight-row .dfr-no { font-weight: 700; color: var(--sky); min-width: 64px; }
+.day-flight-row .dfr-route { color: var(--ink); flex: 1 1 auto; }
+.day-flight-row .dfr-time { color: var(--ink-soft); font-weight: 600; white-space: nowrap; }
+
 .empty-state {
   text-align: center; padding: 60px 20px; background: #fff; border: 1px dashed var(--line-strong);
   border-radius: var(--radius); color: var(--ink-soft);

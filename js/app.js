@@ -133,7 +133,9 @@
     const kind = dayKind(d);
     const card = el("div", { class: "day-card" + (kind ? " is-" + kind : ""), "data-idx": idx });
 
+    const dayFlights = flightsForDate(d.date);
     const chips = [];
+    if (dayFlights.length) chips.push(el("span", { class: "chip sky", text: "✈ " + dayFlights.map(f => f.flightNo).join(" · ") }));
     if (d.hikeDist && d.hikeDist !== "—") chips.push(el("span", { class: "chip", text: "🥾 " + d.hikeDist + (d.hikeTime && d.hikeTime !== "—" ? " · " + d.hikeTime : "") }));
     if (d.elevation) chips.push(el("span", { class: "chip warn", text: "⛰ " + d.elevation }));
     if (d.driveDist && d.driveDist !== "—") chips.push(el("span", { class: "chip sky", text: "🚗 " + d.driveDist + (d.driveTime && d.driveTime !== "—" ? " · " + d.driveTime : "") }));
@@ -155,7 +157,17 @@
       el("span", { class: "expand-ico", text: "›" }),
     ]);
 
+    const flightsBlock = dayFlights.length ? el("div", { class: "day-flights" }, [
+      el("div", { class: "day-flights-label", text: "✈ Flights this day" }),
+      ...dayFlights.map(f => el("div", { class: "day-flight-row" }, [
+        el("span", { class: "dfr-no", text: f.flightNo }),
+        el("span", { class: "dfr-route", text: `${f.from} → ${f.to}` }),
+        el("span", { class: "dfr-time", text: `${f.dep} → ${f.arr}${f.arrOffset ? " +" + f.arrOffset : ""}` }),
+      ])),
+    ]) : null;
+
     const detail = el("div", { class: "day-detail" }, [
+      flightsBlock,
       el("div", { class: "detail-grid" }, [
         field("Day", d, "day", false),
         field("Day of week", d, "dow", false),
@@ -208,6 +220,11 @@
       renderItinerary();
       openIdxs.forEach(i => { const c = $(`.day-card[data-idx="${i}"]`); if (c) c.classList.add("open"); });
     }, 600);
+  }
+
+  function flightsForDate(date) {
+    if (!date) return [];
+    return state.flights.filter(f => f.date && f.date.slice(0, 10) === date.slice(0, 10));
   }
 
   function firstLine(s) { return (s || "").split("\n")[0]; }
