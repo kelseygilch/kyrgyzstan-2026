@@ -12,6 +12,7 @@
   let activeGroup = "TK";
   let activePerson = PEOPLE[0];
   let activeFoodPerson = PEOPLE[0];
+  let pendingRemote = null; // a remote update deferred while the user is typing
 
   function deepClone(o) { return JSON.parse(JSON.stringify(o)); }
 
@@ -52,6 +53,7 @@
   function save() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
     catch (e) { toast("⚠ Could not save — storage may be full"); }
+    if (window.TripSync) TripSync.save(state); // push to shared DB if sync is on
   }
 
   // ---- Small helpers -----------------------------------------------------
@@ -674,6 +676,34 @@
   }
 
   // ====================================================================
+  //  Shared sync: applying inbound changes from other devices
+  // ====================================================================
+  // True while the user is actively typing in one of our fields — we don't want
+  // to yank the DOM out from under them when a remote update lands.
+  function isEditing() {
+    const a = document.activeElement;
+    return a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && a.closest(".app-main, .app-header");
+  }
+
+  function applyRemoteState(remote) {
+    const ns = migrate(remote);
+    if (isEditing()) { pendingRemote = ns; return; } // hold it until they finish typing
+    state = ns;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+    setTab(activeTab);
+  }
+
+  function setSyncStatus(text, cls) {
+    const b = $("#sync-status");
+    if (!b) return;
+    b.textContent = text;
+    b.className = "sync-badge" + (cls ? " " + cls : "");
+    b.title = cls === "live"
+      ? "Changes sync live across everyone's devices"
+      : "Changes are saved on this device only";
+  }
+
+  // ====================================================================
   //  Wire up
   // ====================================================================
   function init() {
@@ -715,6 +745,27 @@
     });
 
     setTab("itinerary");
+
+    // When the user finishes editing a field, flush any remote update we held back.
+    document.addEventListener("focusout", () => {
+      setTimeout(() => {
+        if (pendingRemote && !isEditing()) {
+          state = pendingRemote;
+          pendingRemote = null;
+          try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+          setTab(activeTab);
+        }
+      }, 50);
+    });
+
+    // Start shared live sync (no-op unless Firebase is configured).
+    if (window.TripSync) {
+      TripSync.start({
+        getState: () => state,
+        applyRemote: applyRemoteState,
+        onStatus: setSyncStatus,
+      });
+    }
   }
 
   init();

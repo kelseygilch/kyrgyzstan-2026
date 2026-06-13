@@ -48,11 +48,37 @@ No build step, no server, no dependencies — just open `index.html` in a browse
 ### Saving your work
 - Everything you type is saved automatically in **your browser** (localStorage).
 - **Export** downloads the whole trip as a `.json` file. **Import** loads one back.
-  Use this to move data between devices or share a snapshot with the others.
 - **Reset** restores the original spreadsheet defaults (export first if unsure).
 
-> Note: localStorage is per-browser/per-device. It is *not* a live shared database —
-> if Todd edits on his laptop, export the JSON and send it over (or we add a backend later).
+### Shared live sync (optional, via Firebase)
+By default the app is **local-only** — the badge in the header reads "This device only"
+and each person's edits stay in their own browser.
+
+To make all four of you see the **same live data** across phones and laptops, add a free
+Firebase Realtime Database (badge turns into "● Live sync on"):
+
+1. Go to <https://console.firebase.google.com> → **Add project** (any name) → you can
+   skip Google Analytics.
+2. In the left menu: **Build → Realtime Database → Create Database**. Pick a location,
+   then start in **test mode** (or set the rules below).
+3. **Project settings (gear icon) → General → Your apps → Web (`</>`)** → register an
+   app → copy the `firebaseConfig` object (it includes `databaseURL`).
+4. Paste it into **`js/firebase-config.js`** as `FIREBASE_CONFIG = { … }`, commit, and
+   push. Everyone loading the site now shares one synced copy.
+
+Suggested Realtime Database rules (simple; anyone with the link can read/write — fine for
+a private trip, tighten later with Firebase Auth if you want):
+
+```json
+{ "rules": { "trips": { "$trip": { ".read": true, ".write": true } } } }
+```
+
+> The Firebase *web config* is not a secret — Google designs it to ship in client code;
+> security comes from the database rules. So it's safe to commit `js/firebase-config.js`.
+>
+> Sync is whole-document last-write-wins: great for casual planning, but if two people
+> edit the *exact* same second, the later save wins. Remote updates are held briefly while
+> you're mid-typing so the screen doesn't jump.
 
 ## Running it
 
