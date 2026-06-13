@@ -27,7 +27,16 @@
 //    };
 // ============================================================================
 
-const FIREBASE_CONFIG = null;
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyB3LbpuQIq1EiVfDyhepzg5AD3CLgrc7Gc",
+  authDomain: "kyrgyzstan-trip.firebaseapp.com",
+  databaseURL: "https://kyrgyzstan-trip-default-rtdb.firebaseio.com",
+  projectId: "kyrgyzstan-trip",
+  storageBucket: "kyrgyzstan-trip.firebasestorage.app",
+  messagingSenderId: "1035607494218",
+  appId: "1:1035607494218:web:e468c7794905a8e8c1e0b3",
+  measurementId: "G-9MW5HQFWK6"
+};
 
 // All four of you must share the same TRIP_ID to see the same data. Leave as-is.
 const TRIP_ID = "kyrgyzstan-2026";
